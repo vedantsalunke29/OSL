@@ -1,0 +1,3 @@
+No. of lines: 3
+No. of words: 6
+No. of chars: 24
