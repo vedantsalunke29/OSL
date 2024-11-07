@@ -29,7 +29,7 @@ int main()
     {
         if (buf[i] == '\n')
             lines++;
-        if (buf[i] == ' ')
+        if (buf[i] == ' ' || buf[i] == '\n')
         {
             words++;
         }
