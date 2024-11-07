@@ -14,15 +14,16 @@ void *reader(void *arg)
 {
     long int rno;
     rno = (long int)arg;
-    pthread_mutex_lock(&read_count_mutex);
-    read_count++;
-    pthread_mutex_unlock(&read_count_mutex);
     if (read_count == 0)
     {
         pthread_mutex_lock(&rw_mutex);
     }
+    pthread_mutex_lock(&read_count_mutex);
+    read_count++;
+    pthread_mutex_unlock(&read_count_mutex);
     printf("Reader %ld entered critical section\n", rno);
     printf("Reader %ld is reading data %d\n", rno, data);
+    sleep(rand() % 10);
     pthread_mutex_lock(&read_count_mutex);
     read_count--;
     pthread_mutex_unlock(&read_count_mutex);
@@ -44,6 +45,7 @@ void *writer(void *arg)
     printf("writer %ld entered critical section\n", wno);
 
     printf("Writer %ld is writing data %d\n", wno, ++data);
+    sleep(rand() % 2);
 
     printf("Writer %ld existed critical section\n", wno);
     pthread_mutex_unlock(&rw_mutex);
